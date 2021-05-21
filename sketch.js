@@ -6,7 +6,6 @@ var foodObj;
 var milk;
 
 
-
 function preload(){
   sadDog=loadImage("Images/Dog.png");
   happyDog=loadImage("Images/happy dog.png");
@@ -18,7 +17,7 @@ function setup() {
 
   foodObj = new Food(720,220,100,100);
   
-  foodObj.getFoodStock();
+  foodS = foodObj.getFoodStock();    //added here
   
   dog=createSprite(800,200,100,100);
   dog.addImage(sadDog);
@@ -51,20 +50,22 @@ function draw() {
 function Feed(){
   dog.addImage(happyDog);
 
-  var food_stock_val= foodObj.getFoodStock();
-  if(food_stock_val<= 0){
-    foodObj.updateFoodStock(food_stock_val*0);
+  foodS= foodObj.getFoodStock(); //added here
+  if(foodS<= 0){
+    foodObj.updateFoodStock(foodS*0);
   } else {
-    foodObj.updateFoodStock(food_stock_val-1);
+    foodObj.updateFoodStock(foodS-1);
   }
-
+  foodS= foodObj.getFoodStock(); //added here
 }
 
 //function to add food in stock
 function stockFood(){
   dog.addImage(sadDog);
+  foodS= foodObj.getFoodStock();  //added here
   foodS=foodS+1;
   database.ref('/').update({
    foodStock:foodS
  });
+
 }
